@@ -1,0 +1,637 @@
+I would like you to generate a workout for me in the form of a JSON document,
+following the `exercise_import_schema.json` schema I have uploaded. Use the
+`exercises` and `variants` fields in the `workout_data_export.json` document I
+uploaded to source exercises and variants.
+
+Guidelines for the output format:
+
+    - Omit the following fields from the output schema: `id`, `transition_time`,
+      `description`
+    - Don't include fields if setting them to null or empty list values
+
+Guidelines for the workout structure:
+
+    - Begin with a "Warm-up" section which contains 4-5 minutes of dynamic
+      warmup stretching. These warm ups should target the whole body with an
+      emphasis on the main muscle group being worked in the workout.
+    - Follow with 3-4 main blocks. Each block should contain a set of exercises
+      we wish to superset, meaning they should target different muscles.
+      Generally there should be one "primary" block which hits the main muscle
+      group we wish to target, followed by several accessory blocks which target
+      other muscle groups.
+    - Finish with a "Cool-down" section which contains 4-5 minutes of static
+      stretching. These stretches should target the whole body with an emphasis
+      on the main muscle group being worked in the workout.
+    - Each block should end with a 30s recovery period.
+
+To select a particular exercise, first enumerate all exercises in
+`workout_data_export.json` which target the area specified in the DESCRIPTION
+section. Then, choose one that maximizes variety with respect to other exercises
+in the workout and other workouts in the `workout_data_export.json` document. If
+the exercise is a single-sided exercise, such as "Figure Four Stretch" or
+"Single-Arm Dumbbell Push Press", make sure to include it twice, one with
+variant "Left Side" and one with variant "Right Side".
+
+
+Maximizing variety is really important!! But also make sure the exercise name
+exactly matches one provided in `workout_data_export.json`.
+
+Here are a few examples of example DESCRIPTION sections and the desired OUTPUT.
+
+Example 1:
+
+DESCRIPTION
+```
+- Target the legs
+- Primary exercise: barbell back squats
+- Accessory exercises: posterior chain, hit the quads with dumbbell movements
+- Final weighted block: core and arms
+```
+
+OUTPUT
+```
+{
+  "name": "Lower Body Quads - 2024/10/05",
+  "blocks": [
+    {
+      "name": "Warm-up",
+      "sets": 1,
+      "exercises": [
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Dynamic Hamstring Stretch"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Quadruped Fire Hydrant Circles Backward",
+          "variants": [
+            "Left Side"
+          ]
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Quadruped Fire Hydrant Circles Backward",
+          "variants": [
+            "Right Side"
+          ]
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Lateral Hip Openers"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Hip Cradles"
+        },
+        {
+          "limit_type": "reps",
+          "limit_value": 10,
+          "exercise": "Leg Balance with Toe Reach",
+          "variants": [
+            "Left Side"
+          ]
+        },
+        {
+          "limit_type": "reps",
+          "limit_value": 10,
+          "exercise": "Leg Balance with Toe Reach",
+          "variants": [
+            "Right Side"
+          ]
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Jumping Jacks"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Recover"
+        }
+      ]
+    },
+    {
+      "name": "Strength: Lower",
+      "sets": 3,
+      "exercises": [
+        {
+          "limit_type": "reps",
+          "limit_value": 8,
+          "exercise": "Barbell Back Squat"
+        },
+        {
+          "limit_type": "reps",
+          "limit_value": 15,
+          "exercise": "Dumbbell Glute Bridge"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Recover"
+        }
+      ]
+    },
+    {
+      "name": "Accessory: Posterior Chain",
+      "sets": 3,
+      "exercises": [
+        {
+          "limit_type": "reps",
+          "limit_value": 12,
+          "exercise": "Dumbbell Deadlift"
+        },
+        {
+          "limit_type": "reps",
+          "limit_value": 12,
+          "exercise": "Dumbbell Goblet Squats"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Recover"
+        }
+      ]
+    },
+    {
+      "name": "Core and Arms",
+      "sets": 3,
+      "exercises": [
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Plank Saws"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Flutter Kicks"
+        },
+        {
+          "limit_type": "reps",
+          "limit_value": 12,
+          "exercise": "Hammer Bicep Curls"
+        }
+      ]
+    },
+    {
+      "name": "Cool Down",
+      "sets": 1,
+      "exercises": [
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Standing Forward Fold"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Figure Four Stretch",
+          "variants": [
+            "Left Side"
+          ]
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Figure Four Stretch",
+          "variants": [
+            "Right Side"
+          ]
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Spiderman Stretch"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Equestrian",
+          "variants": [
+            "Left Side"
+          ]
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Equestrian",
+          "variants": [
+            "Right Side"
+          ]
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Child's Pose"
+        }
+      ]
+    }
+  ]
+}
+```
+
+Example 2:
+
+DESCRIPTION
+```
+- Target the upper body
+- Primary exercise: barbell bench press
+- Accessory exercises: lateral and shoulder muscles, hit the chest with dumbbell
+  movements
+- Final weighted block: core and shoulders
+```
+
+OUTPUT
+```
+{
+  "name": "Upper Body - 2024/10/05",
+  "blocks": [
+    {
+      "name": "Warm-up",
+      "sets": 1,
+      "exercises": [
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Arm Circles Forward"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Arm Circles Backward"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Dynamic Chest Stretch"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Trunk Twist"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Walkouts"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Bent Over YTW"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Recover"
+        }
+      ]
+    },
+    {
+      "name": "Strength: Upper",
+      "sets": 3,
+      "exercises": [
+        {
+          "limit_type": "reps",
+          "limit_value": 8,
+          "exercise": "Barbell Bench Press"
+        },
+        {
+          "limit_type": "reps",
+          "limit_value": 10,
+          "exercise": "Dumbbell Bent Over Rear Delt Shoulder Raises"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Recover"
+        }
+      ]
+    },
+    {
+      "name": "Accessory: Upper Back",
+      "sets": 3,
+      "exercises": [
+        {
+          "limit_type": "reps",
+          "limit_value": 12,
+          "exercise": "Bent Over Dumbbell Rows"
+        },
+        {
+          "limit_type": "reps",
+          "limit_value": 12,
+          "exercise": "Dumbbell Incline Bench Press"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Recover"
+        }
+      ]
+    },
+    {
+      "name": "Core and Shoulders",
+      "sets": 3,
+      "exercises": [
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Mountain Climbers"
+        },
+        {
+          "limit_type": "reps",
+          "limit_value": 10,
+          "exercise": "V-Up"
+        },
+        {
+          "limit_type": "reps",
+          "limit_value": 10,
+          "exercise": "Dumbbell Front Raise"
+        },
+        {
+          "limit_type": "reps",
+          "limit_value": 10,
+          "exercise": "Dumbbell Overhead Press"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Recover"
+        }
+      ]
+    },
+    {
+      "name": "Cool Down",
+      "sets": 1,
+      "exercises": [
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Side Lying T Stretch",
+          "variants": [
+            "Left Side"
+          ]
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Side Lying T Stretch",
+          "variants": [
+            "Right Side"
+          ]
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Lower Back Stretch",
+          "variants": [
+            "Left Side"
+          ]
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Lower Back Stretch",
+          "variants": [
+            "Right Side"
+          ]
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Prayer Stretch",
+          "variants": [
+            "Left Side"
+          ]
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Prayer Stretch",
+          "variants": [
+            "Right Side"
+          ]
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Crab Reaches"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Greeting the Earth"
+        }
+      ]
+    }
+  ]
+}
+```
+
+Example 3:
+
+DESCRIPTION
+```
+- Total body workout
+- First block should have a lower body and upper body exercise
+- Second block should target lower
+- Third block should target upper
+```
+
+OUTPUT
+```
+{
+  "name": "Total Body - 2024/04/22",
+  "blocks": [
+    {
+      "name": "Quick Prep",
+      "sets": 1,
+      "exercises": [
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Lunge with Rotation"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Runner Touches",
+          "variants": [
+            "Left Side"
+          ]
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Runner Touches",
+          "variants": [
+            "Right Side"
+          ]
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Crossback Lunges"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "High Plank"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "YTW"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Recover"
+        }
+      ]
+    },
+    {
+      "name": "Foundation: Total",
+      "sets": 4,
+      "exercises": [
+        {
+          "limit_type": "reps",
+          "limit_value": 8,
+          "exercise": "Dumbbell Jump Squat"
+        },
+        {
+          "limit_type": "reps",
+          "limit_value": 10,
+          "exercise": "Dumbbell Curl to Press"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Floor Slides"
+        }
+      ]
+    },
+    {
+      "name": "Supplemental: Lower",
+      "sets": 4,
+      "exercises": [
+        {
+          "limit_type": "reps",
+          "limit_value": 8,
+          "exercise": "Staggered Dumbbell Romanian Deadlift",
+          "variants": [
+            "Left Side"
+          ]
+        },
+        {
+          "limit_type": "reps",
+          "limit_value": 8,
+          "exercise": "Staggered Dumbbell Romanian Deadlift",
+          "variants": [
+            "Right Side"
+          ]
+        },
+        {
+          "limit_type": "reps",
+          "limit_value": 6,
+          "exercise": "Lateral Lunges"
+        },
+        {
+          "limit_type": "reps",
+          "limit_value": 6,
+          "exercise": "Thread the Needle",
+          "variants": [
+            "Left Side"
+          ]
+        },
+        {
+          "limit_type": "reps",
+          "limit_value": 6,
+          "exercise": "Thread the Needle",
+          "variants": [
+            "Right Side"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Accessory: Upper",
+      "sets": 4,
+      "exercises": [
+        {
+          "limit_type": "reps",
+          "limit_value": 12,
+          "exercise": "Dumbbell Floor Press"
+        },
+        {
+          "limit_type": "reps",
+          "limit_value": 12,
+          "exercise": "Dumbbell Upright Row"
+        },
+        {
+          "limit_type": "reps",
+          "limit_value": 10,
+          "exercise": "Flying Shoulder Presses"
+        }
+      ]
+    },
+    {
+      "name": "Cool Down",
+      "sets": 1,
+      "exercises": [
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Wide-Legged Standing Forward Fold"
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Crossbody Lat Stretch",
+          "variants": [
+            "Left Side"
+          ]
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Crossbody Lat Stretch",
+          "variants": [
+            "Right Side"
+          ]
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Figure Four Stretch",
+          "variants": [
+            "Left Side"
+          ]
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Figure Four Stretch",
+          "variants": [
+            "Right Side"
+          ]
+        },
+        {
+          "limit_type": "time_s",
+          "limit_value": 30,
+          "exercise": "Feet Elevated Breathing"
+        }
+      ]
+    }
+  ]
+}
+```
+
+DESCRIPTION
+{{description}}

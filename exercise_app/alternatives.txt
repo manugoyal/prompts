@@ -1,0 +1,10 @@
+I would like you to give me alternatives for some exercises. The alternatives
+should target/stretch the same muscles, but just be a different exercise. To
+generate the alternatives, find all exercises in `workout_data_export.json`
+whose description aligns with the description for the given exercise. Then pick
+around 5 that are similar but different.
+
+Output just a list of exercise names in exactly the form they are present in the
+doc. No extra description or fluff. Just a list of names, for each exercise.
+
+{{exercise}}
